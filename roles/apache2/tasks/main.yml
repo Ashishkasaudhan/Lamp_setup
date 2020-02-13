@@ -10,7 +10,7 @@
 
 - name: Enable apache2 modules
   become: yes
-  command: a2enmod rewrite actions alias fastcgi proxy_fcgi
+  command: a2enmod rewrite actions alias
 
 - name: Enable new site
   shell: /usr/sbin/a2ensite {{ http_conf }}
