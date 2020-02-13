@@ -1,0 +1,6 @@
+---
+app_user: "root"
+http_host: "site"
+http_conf: "site.conf"
+http_port: "80"
+disable_default: true

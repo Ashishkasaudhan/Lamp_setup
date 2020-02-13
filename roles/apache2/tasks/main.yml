@@ -1,0 +1,50 @@
+- name: Install apache2 web server
+  become: true
+  apt: pkg={{ item }} state=installed update_cache=true
+  with_items:
+  - apache2
+  - libapache2-mod-php
+  - python-dev
+  - libssl-dev
+  - python-pip
+
+- name: Enable apache2 modules
+  become: yes
+  command: a2enmod rewrite actions alias fastcgi proxy_fcgi
+
+- name: Enable new site
+  shell: /usr/sbin/a2ensite {{ http_conf }}
+  
+
+- name: Set up Apache virtualhost
+  template:
+    src: "files/apache.conf.j2"
+    dest: "/etc/apache2/sites-available/{{ http_conf }}"
+     
+
+- name: Disable default Apache site
+  shell: /usr/sbin/a2dissite 000-default.conf
+  when: disable_default
+
+- name: Remove default apache2 index.html file
+  become: yes
+  ignore_errors: yes
+  command: rm /var/www/html/index.html 
+
+- name: "UFW - Allow HTTP on port {{ http_port }}"
+  ufw:
+    rule: allow
+    port: "{{ http_port }}"
+    proto: tcp
+    
+- name: Upload default index.php for host 
+  become: yes
+  copy: 
+   src: files/index.php 
+   dest: /var/www/html/ 
+   mode: 0644  
+  
+- name: Restart Apache
+  service:
+    name: apache2
+    state: restarted

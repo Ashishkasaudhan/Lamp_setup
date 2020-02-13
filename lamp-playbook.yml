@@ -1,0 +1,22 @@
+- hosts: all
+  become: true
+  gather_facts: false
+  pre_tasks:
+  - name: Install python for Ansible
+    raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
+    register: output
+    changed_when: output.stdout != ""
+  - name: Gathering Facts
+    setup:
+  roles:
+  - role: apache2
+    tags: 
+    - install_apache
+  - role: mysql
+    tags: 
+    - install_mysql
+  - role: php
+    tags: 
+    - intstall_php
+  vars:
+    mysql_root_password: "mypass"
