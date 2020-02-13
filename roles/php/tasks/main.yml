@@ -8,8 +8,4 @@
    - php-mysql
    - php-dom
    - php-xml
-
-- name: Restart Apache
-  service:
-    name: apache2
-    state: restarted
+  notify: restart apache

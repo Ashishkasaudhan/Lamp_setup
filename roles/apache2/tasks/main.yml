@@ -28,16 +28,10 @@
   when: disable_default
   notify: restart apache
 
-- name: Check that the somefile.conf exists
-  stat:
-    path: /var/www/html/index.html 
-  register: stat_result
-
 - name: Remove default apache2 index.html file
   become: yes
   ignore_errors: yes
   command: rm /var/www/html/index.html
-  when:  stat_result.exists == true
   notify: restart apache
 
 - name: "UFW - Allow HTTP on port {{ http_port }}"
