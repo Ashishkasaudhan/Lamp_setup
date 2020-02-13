@@ -1,10 +1,7 @@
-- name: Install php-fpm & php extensions
+- name: Install Php and php library 
   become: true
-  apt: 
-   pkg: "{{ item }}" 
-   state: installed 
-   update_cache: true
-   with_items:
+  apt: pkg={{ item }} state=installed update_cache=true
+  with_items:
    - php
    - php-gd
    - php-curl
