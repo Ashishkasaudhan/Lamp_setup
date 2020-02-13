@@ -7,7 +7,7 @@ This is a Ansible Playbook to deploy a LAMP Stack infrastructure on ubuntu/debia
 * php
 
 ### Pre-requisites
-You must have Ansible 2.3 installed.
+You must have Ansible version greater or similar to  2.6 installed.
 
 ### Setup
 * Add host in /etc/ansible/hosts file. See the given hosts file to add hosts.  
