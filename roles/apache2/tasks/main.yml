@@ -10,17 +10,15 @@
 
 - name: Enable apache2 modules
   become: yes
-  command: a2enmod rewrite actions alias
-
-- name: Enable new site
-  shell: /usr/sbin/a2ensite {{ http_conf }}
-  
+  command: a2enmod rewrite actions alias  
 
 - name: Set up Apache virtualhost
   template:
     src: "files/apache.conf.j2"
     dest: "/etc/apache2/sites-available/{{ http_conf }}"
-     
+
+- name: Enable new site
+  shell: /usr/sbin/a2ensite {{ http_conf }}     
 
 - name: Disable default Apache site
   shell: /usr/sbin/a2dissite 000-default.conf
