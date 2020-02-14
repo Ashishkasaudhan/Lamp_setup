@@ -15,8 +15,20 @@
   - role: mysql
     tags: 
     - install_mysql
+    vars:
+    mysql_root_password: "mypass"
   - role: php
     tags: 
     - intstall_php
-  vars:
-    mysql_root_password: "mypass"
+  - role : postfix-ses
+    tags: 
+    - install_postfix_ses
+    vars:  
+    postfix_aliases:
+      - user: root
+        alias: 
+    postfix_relayhost: 
+    postfix_relaytls: true
+    # AWS IAM SES credentials (not access key):
+    postfix_sasl_user: 
+    postfix_sasl_password: 
