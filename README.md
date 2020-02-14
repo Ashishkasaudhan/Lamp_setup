@@ -24,7 +24,7 @@ You must have Ansible version greater or similar to  2.6 installed.
 * `disable_default`: whether or not to disable the default Apache website. When set to true, your new virtualhost should be used as default website. Default is true.
 *   `postfix_aliases`:
        - user: root
-         alias: ashish@devopsunification.com
+       -  alias: ashish@devopsunification.com
 *    `postfix_relayhost`: 
 *    ` postfix_relaytls`: true
     # AWS IAM SES credentials (not access key):
